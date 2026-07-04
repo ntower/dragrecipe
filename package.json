@@ -1,0 +1,12 @@
+{
+  "name": "dragrecipe",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DragRecipe — WoW TBC Classic addon (drag profession recipes to action bars)",
+  "scripts": {
+    "typecheck": "node -e \"process.exit(0)\"",
+    "check": "node scripts/run-luacheck.js DragRecipe",
+    "lint": "node scripts/run-luacheck.js DragRecipe",
+    "test": "node scripts/run-busted.js"
+  }
+}

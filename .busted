@@ -1,0 +1,10 @@
+-- Busted config: https://lunarmodules.github.io/busted/#predefined-busted-tasks
+return {
+  _all = {
+    verbose = true,
+    pattern = "_spec",
+    recursive = true,
+    ROOT = { "spec" },
+  },
+  default = {},
+}
