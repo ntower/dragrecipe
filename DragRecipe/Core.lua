@@ -1,7 +1,7 @@
 -- DragRecipe — Core: hook profession windows for drag-to-bar.
 
 DragRecipe = DragRecipe or {}
-DragRecipe.Version = "1.0.0"
+DragRecipe.Version = "1.0.1"
 
 local Logic = DragRecipe.Logic
 

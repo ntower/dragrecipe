@@ -1,7 +1,7 @@
 ## Interface: 20506
 ## Title: DragRecipe
 ## Notes: Drag profession recipe names to your action bars. TBC Classic.
-## Version: 1.0.0
+## Version: 1.0.1
 ## Author: Nick Tower
 ## LoadWith: Blizzard_TradeSkillUI, Blizzard_CraftUI
 
