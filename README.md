@@ -27,7 +27,8 @@ See [TESTING.md](TESTING.md) and [LINTING.md](LINTING.md) for setup details.
 Push a tag (`v1.0.0`) or use the GitHub Actions workflow dispatch to build and upload to CurseForge. Configure these repository settings:
 
 - **Secret:** `CURSEFORGE_API_TOKEN`
-- **Vars:** `CURSEFORGE_PROJECT_ID`, `CURSEFORGE_DISPLAY_NAME`, `CURSEFORGE_GAME_VERSIONS` (comma-separated game version IDs)
+- **Vars:** `CURSEFORGE_PROJECT_ID`, `CURSEFORGE_DISPLAY_NAME`
+- **Workflow env:** `CURSEFORGE_GAME_VERSIONS` in `.github/workflows/release.yml` (CurseForge game version ID for TBC 2.5.6)
 
 ## License
 
