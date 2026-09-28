@@ -148,4 +148,87 @@ describe("Logic", function()
       assert.is_false(ok)
     end)
   end)
+
+  describe("PickupSpellByID", function()
+    after_each(function()
+      _G.PickupSpell = nil
+      _G.C_Spell = nil
+    end)
+
+    it("uses the global PickupSpell when present (TBC)", function()
+      local picked
+      _G.PickupSpell = function(spellID) picked = spellID end
+      _G.C_Spell = { PickupSpell = function() error("should not be called") end }
+
+      assert.is_true(Logic.PickupSpellByID(3275))
+      assert.are.equal(3275, picked)
+    end)
+
+    it("falls back to C_Spell.PickupSpell (WoW Forever)", function()
+      local picked
+      _G.PickupSpell = nil
+      _G.C_Spell = { PickupSpell = function(spellID) picked = spellID end }
+
+      assert.is_true(Logic.PickupSpellByID(3275))
+      assert.are.equal(3275, picked)
+    end)
+
+    it("returns false when no pickup API exists", function()
+      assert.is_false(Logic.PickupSpellByID(3275))
+    end)
+
+    it("returns false for nil spell ID", function()
+      _G.C_Spell = { PickupSpell = function() error("should not be called") end }
+      assert.is_false(Logic.PickupSpellByID(nil))
+    end)
+  end)
+
+  describe("PickupProfessionsRecipe", function()
+    local picked
+
+    before_each(function()
+      picked = nil
+      _G.PickupSpell = nil
+      _G.C_Spell = { PickupSpell = function(spellID) picked = spellID end }
+    end)
+
+    after_each(function()
+      _G.C_Spell = nil
+    end)
+
+    it("picks up a learned recipe by recipeID", function()
+      assert.is_true(Logic.PickupProfessionsRecipe({ recipeID = 2963, learned = true }))
+      assert.are.equal(2963, picked)
+    end)
+
+    it("does not pick up an unlearned recipe", function()
+      assert.is_false(Logic.PickupProfessionsRecipe({ recipeID = 2963, learned = false }))
+      assert.is_nil(picked)
+    end)
+
+    it("returns false for nil or malformed recipeInfo", function()
+      assert.is_false(Logic.PickupProfessionsRecipe(nil))
+      assert.is_false(Logic.PickupProfessionsRecipe("not a table"))
+      assert.is_false(Logic.PickupProfessionsRecipe({ learned = true }))
+      assert.is_nil(picked)
+    end)
+
+    it("picks up the highest learned rank when a resolver is given", function()
+      local rank1 = { recipeID = 100, learned = true }
+      local rank2 = { recipeID = 200, learned = true }
+      local function getHighestLearned(info)
+        assert.are.equal(rank1, info)
+        return rank2
+      end
+
+      assert.is_true(Logic.PickupProfessionsRecipe(rank1, getHighestLearned))
+      assert.are.equal(200, picked)
+    end)
+
+    it("keeps the original recipe when the resolver finds no learned rank", function()
+      local info = { recipeID = 100, learned = false }
+      assert.is_false(Logic.PickupProfessionsRecipe(info, function() return nil end))
+      assert.is_nil(picked)
+    end)
+  end)
 end)

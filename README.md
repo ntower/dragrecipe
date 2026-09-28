@@ -1,6 +1,6 @@
 # DragRecipe
 
-Drag profession recipe names to your action bars in WoW TBC Classic.
+Drag profession recipe names to your action bars in WoW TBC Classic and WoW Forever.
 
 When you open a profession window (e.g. Tailoring, Enchanting), click and drag a recipe name—or the selected recipe icon at the bottom of the detail panel—to pick up the recipe spell on your cursor, then drop it onto an action bar.
 
@@ -12,6 +12,7 @@ Copy the `DragRecipe` folder into your WoW `Interface/AddOns` directory, or inst
 
 - **Trade Skill** window (Tailoring, Blacksmithing, Alchemy, etc.) — `TradeSkillFrame`
 - **Craft** window (Enchanting, Beast Training) — `CraftFrame`
+- **WoW Forever:** the retail-style **Professions** window — `ProfessionsFrame` (recipe list rows and the recipe icon in the details panel)
 
 ## Development
 
@@ -28,7 +29,7 @@ Push a tag (`v1.0.0`) or use the GitHub Actions workflow dispatch to build and u
 
 - **Secret:** `CURSEFORGE_API_TOKEN`
 - **Vars:** `CURSEFORGE_PROJECT_ID`, `CURSEFORGE_DISPLAY_NAME`
-- **Workflow env:** `CURSEFORGE_GAME_VERSIONS` in `.github/workflows/release.yml` (CurseForge game version ID for TBC 2.5.6)
+- **Workflow env:** `CURSEFORGE_GAME_VERSIONS` in `.github/workflows/release.yml` (CurseForge game version IDs for TBC 2.5.6 and WoW Forever 1.60.1)
 
 ## License
 

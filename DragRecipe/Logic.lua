@@ -21,12 +21,49 @@ function Logic.GetSpellIDFromRecipeLink(link)
     return nil
 end
 
+--- Put a spell on the cursor. TBC has the global PickupSpell; the retail-based
+--- WoW Forever client only has C_Spell.PickupSpell (the global was removed in 11.0).
+--- @param spellID number|nil
+--- @return boolean true if a pickup function was called
+function Logic.PickupSpellByID(spellID)
+    if not spellID then
+        return false
+    end
+    if PickupSpell then
+        PickupSpell(spellID)
+        return true
+    end
+    if C_Spell and C_Spell.PickupSpell then
+        C_Spell.PickupSpell(spellID)
+        return true
+    end
+    return false
+end
+
+--- Pick up a recipe from the WoW Forever Professions window (retail ProfessionsFrame).
+--- recipeInfo comes from C_TradeSkillUI.GetRecipeInfo; its recipeID is the recipe's spell ID.
+--- @param recipeInfo table|nil
+--- @param getHighestLearned function|nil Professions.GetHighestLearnedRecipe, to resolve multi-rank recipes
+--- @return boolean true if a pickup function was called
+function Logic.PickupProfessionsRecipe(recipeInfo, getHighestLearned)
+    if type(recipeInfo) ~= "table" then
+        return false
+    end
+    if getHighestLearned then
+        recipeInfo = getHighestLearned(recipeInfo) or recipeInfo
+    end
+    if not recipeInfo.learned or not recipeInfo.recipeID then
+        return false
+    end
+    return Logic.PickupSpellByID(recipeInfo.recipeID)
+end
+
 --- Pick up a recipe spell at the given tradeskill/craft index.
 --- @param context string "trade" or "craft"
 --- @param index number
 --- @return boolean true if PickupSpell was called
 function Logic.PickupRecipeAt(context, index)
-    if not PickupSpell or not index or index <= 0 then
+    if not index or index <= 0 then
         return false
     end
 
@@ -58,6 +95,5 @@ function Logic.PickupRecipeAt(context, index)
         return false
     end
 
-    PickupSpell(spellID)
-    return true
+    return Logic.PickupSpellByID(spellID)
 end

@@ -1,6 +1,7 @@
 # CurseForge Release — build addon zip and upload via API
 # Requires: CURSEFORGE_API_TOKEN (secret), CURSEFORGE_PROJECT_ID, CURSEFORGE_DISPLAY_NAME
-# CURSEFORGE_GAME_VERSIONS: CurseForge game version ID for TBC Classic 2.5.6 (Interface 20506)
+# CURSEFORGE_GAME_VERSIONS: CurseForge game version IDs (the specific-version "id", not "gameVersionTypeID") for
+#   TBC Classic 2.5.6 (Interface 20506) and WoW Forever 1.60.1 (Interface 16001)
 
 name: CurseForge Release
 
@@ -21,7 +22,7 @@ on:
 
 env:
   CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
-  CURSEFORGE_GAME_VERSIONS: "16533"
+  CURSEFORGE_GAME_VERSIONS: "16533,17053"
 
 jobs:
   release:

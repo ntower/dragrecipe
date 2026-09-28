@@ -28,6 +28,13 @@ read_globals = {
     "CraftIcon",
     "TradeSkillFrame_Update",
     "CraftFrame_Update",
+    -- WoW Forever (retail-based Blizzard_Professions)
+    "C_Spell",
+    "C_AddOns",
+    "IsAddOnLoaded",
+    "ProfessionsFrame",
+    "Professions",
+    "ScrollUtil",
 }
 
 files = {
